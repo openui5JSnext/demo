@@ -1,0 +1,221 @@
+
+<!DOCTYPE HTML>
+<html>
+       <head>
+              <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+<style>
+		#subHeaderButtons {
+			text-align: right;
+			display: block;
+			margin-top: 1rem;
+		}
+		
+		#subHeaderButtons .sapMBtn {
+			margin-left: 0.5rem;
+		}
+		
+		#footerButtons {
+			display: block;
+		}
+		
+		#footerButtons .sapMBtn {
+			margin-right: 0.5rem;
+			margin-top: 1rem;
+		}
+		
+		#objectHeader {
+			margin: 0 -1.5rem;
+			padding: 1.5rem;
+		}
+
+</style>
+<script id="sap-ui-bootstrap" type="text/javascript"
+	src="resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_hcb"
+	data-sap-ui-libs="sap.m, sap.ui.commons, sap.ui.core, sap.ui.table">
+</script>
+	<script type="text/javascript" src="demoData.js"></script>	  
+   <script>
+	   
+   	jQuery.sap.require("sap.m.MessageToast");
+	jQuery.sap.require("sap.ui.core.IconPool");
+	
+	//All the getters comes from demoData.js
+	
+	var ordersMenu = new sap.m.List(
+		{
+			inset : false,
+			showUnread: true,
+			headerText : "Orders",
+		    items: getOrdersMenuItem()
+	});
+	
+	//master pages
+	var masterPages = [new sap.m.Page("masterPage1", {
+		title: "Some Master",
+		  content: [ordersMenu]
+		})
+	]
+	
+	// details pages
+	
+	function getOrdersMenuItem() {
+	var ordersMenuListItems = [ new sap.m.StandardListItem({
+		title : "pPhone",
+		iconInset : false,
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		icon : sap.ui.core.IconPool.getIconURI("iphone"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("iphone"),
+		info : "Available",
+		infoState : "Success",
+		press : function(oEv) {
+			oApp.toDetail("pHoneDetailsPage");
+		}
+	}),new sap.m.StandardListItem({
+		title : "pGalaxy",
+		iconInset : false,
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		icon : sap.ui.core.IconPool.getIconURI("iphone"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("iphone"),
+		info : "Available",
+		infoState : "Success",
+		press : function(oEv) {
+			oApp.toDetail("pHoneDetailsPage");
+		}
+	}),new sap.m.StandardListItem({
+		title : "pNexus",
+		iconInset : false,
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		icon : sap.ui.core.IconPool.getIconURI("ipad-2"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("ipad-2"),
+		info : "Not Available",
+		infoState : "Error",
+		press : function(oEv) {
+			oApp.toDetail("pHoneDetailsPage");
+		}
+	}),new sap.m.StandardListItem({
+		title : "rPad",
+		iconInset : false,
+		icon : sap.ui.core.IconPool.getIconURI("ipad"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("ipad"),
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		info : "Not Available",
+		infoState : "Error",
+		press : function(oEv) {
+			oApp.toDetail("rPageDetailsPage");
+		}
+	}),new sap.m.StandardListItem({
+		title : "rNote",
+		iconInset : false,
+		icon : sap.ui.core.IconPool.getIconURI("ipad"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("ipad"),
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		info : "Pending Delivery",
+		infoState : "Warning",
+		selected : false,
+		press : function(oEv) {
+			oApp.toDetail("rPageDetailsPage");
+		}
+	}), new sap.m.StandardListItem({
+		title : "History",
+		iconInset : false,
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		icon : sap.ui.core.IconPool.getIconURI("history"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("history"),
+		press : function(oEv) {
+			oApp.toDetail("detailPage3");
+		}
+	}), new sap.m.StandardListItem({
+		title : "Customers",
+		iconInset : false,
+		icon : sap.ui.core.IconPool.getIconURI("employee"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("employee"),
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		press : function(oEv) {
+			oApp.toDetail("detailPage5");
+		}
+	}),
+	new sap.m.StandardListItem({
+		title : "Add Product",
+		iconInset : false,
+		type : "Navigation",
+		unread : true,
+		counter : 0,
+		selected : false,
+		icon : sap.ui.core.IconPool.getIconURI("add"),
+		activeIcon : sap.ui.core.IconPool.getIconURI("add"),
+		press : function(oEv) {
+			oApp.toDetail("addDetailsPage");
+		}
+	})];
+	return ordersMenuListItems;
+	}
+	
+	var detailsPages = [
+		new sap.m.Page("pHoneDetailsPage", {
+			customHeader : oBar0 = new sap.m.Bar({
+				contentMiddle : oLabel0 = new sap.m.Label({
+					text : "HCB Demo Page"
+				})
+			}),
+			content : getPHoneDetailsPage()
+		}),
+		new sap.m.Page("addDetailsPage", {
+			title: "Some Detail",
+			 content: getAddProductDetails()
+		}),
+		new sap.m.Page("detailPage3", {
+			title: "Some Detail",
+			 content: getControlsDetails3()
+		}),
+		new sap.m.Page("detailPage5", {
+			title: "Some Detail",
+			content: getGrowingList()
+		}),
+		new sap.m.Page("rPageDetailsPage", {
+			title: "Some detail",
+			content: getRilaPageControls()
+		})
+	];
+	
+	var oShell= new sap.m.Shell("myShell", {
+		title: "My Application",
+		headerRightText: "Nora Crush",
+		logout: function() {alert("Logout button was pressed");}
+	});
+	
+	var oApp = new sap.m.SplitApp("myApp", {
+		masterPages: masterPages,
+		detailPages: detailsPages 
+	});
+	
+	oShell.setApp(oApp);
+	oShell.placeAt("content");
+	
+	</script>
+	
+	</head>
+	<body class='sapUiBody' role="application" id="content">
+	</body>
+</html>
